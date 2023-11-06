@@ -1,0 +1,30 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap');
+@import 'Variables';
+@import 'Mixins';
+
+
+:root {
+  font-family: $font-family;
+}
+
+body {
+  @include resetAllExtraSpaces();
+}
+
+.container {
+  width: 95vw;
+  margin: 0 auto;
+  display: flex;
+  gap: 10px;
+
+  section {
+    flex: 1;
+
+    &:first-child {
+      flex: 0.5;
+    }
+    &:last-child {
+      flex: 0.5;
+    }
+  }
+}

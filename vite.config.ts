@@ -6,9 +6,11 @@ export default defineConfig({
   build: {
     sourcemap: true,
     manifest: true,
+    cssCodeSplit: false,
     rollupOptions: {
       output: {
-        entryFileNames: 'bundle.[hash].js'
+        entryFileNames: 'bundle.[hash].js',
+        assetFileNames: 'bundle.[hash].[ext]'
       },
     },
   },

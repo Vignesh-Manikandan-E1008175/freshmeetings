@@ -1,27 +1,52 @@
-# React + TypeScript + Vite
+# FreshMeetings
+FreshMeetings is a React-based meeting scheduler application that allows you to efficiently schedule, manage, and keep track of your meetings. It provides a user-friendly interface for both hosts and participants to streamline the scheduling process.
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Features
 
-Currently, two official plugins are available:
+- **Create Meetings**: Hosts can create and schedule meetings, specifying details such as date, time, and location.
+- **Real-time Updates**: Receive notifications and updates for your scheduled meetings.
+- **User-Friendly Interface**: An intuitive and responsive UI for an exceptional user experience.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Technologies Used
 
-## Expanding the ESLint configuration
+- React
+- Redux for state management
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+## Prerequisites
 
-- Configure the top-level `parserOptions` property like this:
+Before you begin using FreshMeetings, ensure you have the following installed:
 
-```js
-   parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-   },
-```
+- Node.js: [Download Node.js](https://nodejs.org/)
+- npm: npm comes bundled with Node.js.
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+## Installation
+
+1. Clone the repository to your local machine:
+
+   ```bash
+   git clone <freshmeetings.git>
+   cd freshmeetings
+   ```
+
+2. Install the required dependencies:
+
+   ```bash
+   npm install
+   ```
+
+3. Start the development server:
+
+   ```bash
+   npm start
+   ```
+   This should spin-up the app in a local server
+
+## Usage
+
+TBD
+
+## Contact
+
+If you have questions or need assistance, you can reach out to vignesh.manikandan@freshworks.com
+
+---
