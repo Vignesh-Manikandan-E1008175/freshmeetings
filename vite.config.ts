@@ -9,7 +9,8 @@ export default defineConfig({
     cssCodeSplit: false,
     rollupOptions: {
       output: {
-        entryFileNames: 'bundle.[hash].js'
+        entryFileNames: 'bundle.[hash].js',
+        assetFileNames: 'bundle.[hash].[ext]'
       },
     },
   },
