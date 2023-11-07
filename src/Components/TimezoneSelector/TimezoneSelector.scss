@@ -1,0 +1,35 @@
+@import './../../Variables';
+@import './../../Mixins';
+
+.timezone-selector-container {
+  h1 {
+    @include labelGradient();
+    margin: 0 auto 10px auto;
+  }
+
+  .info-container {
+    .info-text {
+      font-size: small;
+      font-weight: 200;
+      margin: 0;
+      color: $text-default;
+      display: inline-block;
+    }
+  }
+  
+  .timezone-wrapper {
+    margin-top: 10px;
+  
+    div[class$='-container'] {
+      div[class$='-control'] {
+        border-radius: 10px;
+        background-color: $background-primary;
+        border: $default-border;
+
+        &:hover {
+          box-shadow: 0 0 0 1px $border-color-highlighted;
+        }
+      }
+    }
+  }
+}

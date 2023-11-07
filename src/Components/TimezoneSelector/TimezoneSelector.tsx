@@ -1,25 +1,16 @@
-import { useMemo, useState } from 'react'
+import { useEffect } from 'react'
 import TimezoneSelect, { allTimezones } from "react-timezone-select";
-
-// Third party libraries
 import dayjs from 'dayjs'
 import utc from 'dayjs/plugin/utc'
 import timezone from 'dayjs/plugin/timezone'
+import './TimezoneSelector.scss'
+import { isAlternateTzFormat } from '../../Constants/helpers';
+import useAppContext from '../../useAppContext'
+import { EMOJIS } from '../../Constants/app-constants';
+
 
 dayjs.extend(utc)
 dayjs.extend(timezone)
-
-interface TzProps {
-  defaultTimezone?: string | AlternateTzFormat
-}
-
-declare type AlternateTzFormat = {
-  value: string
-  label: string
-  abbrev?: string
-  altName?: string
-  offset?: number
-}
 
 const TIMEZONES = {
   ...allTimezones,
@@ -27,26 +18,24 @@ const TIMEZONES = {
   "Europe/Berlin": "Frankfurt"
 }
 
-const isAlternateTzFormat = (timezone: string | AlternateTzFormat): timezone is AlternateTzFormat => {
-  return (timezone as AlternateTzFormat).value !== undefined;
-}
+const TimezoneSelector = () => {
+  const { selectedTimezone, handleTimezoneChange } = useAppContext();
 
-const TimezoneSelector = ({ defaultTimezone = Intl.DateTimeFormat().resolvedOptions().timeZone }: TzProps) => {
-  const [tz, setTz] = useState(defaultTimezone)
-  const [datetime, setDatetime] = useState(dayjs());
-
-  useMemo(() => {
-    const tzValue = isAlternateTzFormat(tz) ? tz.value : tz
-    setDatetime(dayjs.tz(datetime, tzValue))
-  }, [tz]);
+  useEffect(() => {
+    const tzValue = isAlternateTzFormat(selectedTimezone) ? selectedTimezone.value : selectedTimezone
+    handleTimezoneChange(tzValue)
+  });
 
   return (
-    <>
-      <h2>Select Timezone:</h2>
-      <div className="timezone-wrapper">
-        <TimezoneSelect value={tz} onChange={setTz} labelStyle="original" timezones={TIMEZONES}/>
+    <div className="timezone-selector-container">
+      <h1>Pick a suitable date</h1>
+      <div className="info-container">
+        <p className="info-text">Select a particular date to check availability</p>
       </div>
-    </>
+      <div className="timezone-wrapper">
+        <TimezoneSelect value={selectedTimezone} onChange={handleTimezoneChange} labelStyle="original" timezones={TIMEZONES}/>
+      </div>
+    </div>
   )
 }
 

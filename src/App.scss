@@ -1,30 +1,119 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700&display=swap');
 @import 'Variables';
 @import 'Mixins';
 
 
 :root {
+  @include maxViewportHeight();
   font-family: $font-family;
 }
 
 body {
   @include resetAllExtraSpaces();
+  @include maxViewportHeight();
+  background-color: $background-primary;
+  overflow: hidden;
+}
+
+h1.app-header {
+  font-size: 2.5em;
+  margin: 0;
+  position: absolute;
+  top: 55px;
+  left: 70px;
 }
 
 .container {
+  @include neuDefaultState();
+
   width: 95vw;
-  margin: 0 auto;
+  height: 90%;
+  margin: 2% auto 0 auto;
   display: flex;
   gap: 10px;
 
   section {
-    flex: 1;
-
     &:first-child {
       flex: 0.5;
     }
+
+    &:nth-child(2) {
+      flex: 2;
+    }
+
     &:last-child {
       flex: 0.5;
     }
   }
+
+  section.appointment-details {
+    margin: 7% 0 auto 20px;
+
+    .content-container {
+      padding: 20px 15px;
+
+      .title {
+        @include labelGradient();
+        margin-top: 0;
+        margin-bottom: 10px;
+      }
+  
+      .duration {
+        color: $text-default;
+        font-size: small;
+        font-weight: 200;
+      }
+      
+      .description {
+        margin-top: 10px;
+        font-size: medium;
+        font-weight: 300;
+        color: $text-default;
+        max-width: 350px;
+        min-width: 250px;
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 5;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: wrap;
+      }
+    }
+  }
+
+  section.date-picker {
+    max-width: 600px;
+    margin: 7% auto 0 auto;
+    padding: 20px 30px;
+  }
+
+  section.time-picker {
+    margin: 7% auto 0 auto;
+  }
+}
+
+footer {
+  position: absolute;
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  color: $text-default;
+
+  .powered-by {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: max-content;
+    font-size: small;
+  }
+}
+
+.gradient {
+  background: $pb-gradient-color-1;
+  background: linear-gradient(0deg, $pb-gradient-color-1 0%, $pb-gradient-color-2 50%, $pb-gradient-color-3 100%);
+  background: -moz-linear-gradient(0deg, $pb-gradient-color-1 0%, $pb-gradient-color-2 50%, $pb-gradient-color-3 100%);
+  background: -webkit-linear-gradient(0deg, $pb-gradient-color-1 0%, $pb-gradient-color-2 50%, $pb-gradient-color-3 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
 }

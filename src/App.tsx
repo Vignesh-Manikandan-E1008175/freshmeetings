@@ -1,23 +1,28 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { useEffect } from 'react'
 import { BASE_64_ICONS, EMOJIS } from './Constants/app-constants'
 import { stubData } from './Constants/api-stub'
-
-// Third party libraries
 import 'rsuite/dist/rsuite-no-reset.min.css';
-
-// App styles
+import axios from 'axios'
+import AppProvider from './AppProvider';
 import './App.scss'
 
 // Components
 import CustomCalendar from './Components/CustomCalendar/CustomCalendar'
 import TimezoneSelector from './Components/TimezoneSelector/TimezoneSelector'
-
-const defaultTimezone = stubData.appointmentDetails.timezone ?? 'Etc/Utc'
+import TimePicker from './Components/TimePicker/TimePicker'
 
 const App = () => {
 
   useEffect(() => {
     createFreshsalesFavicon();
+    // axios.get('https://jsonplaceholder.typicode.com/posts')
+    //   .then(response => {
+    //     console.log(response.data);
+    //   })
+    //   .catch(error => {
+    //     setError({ message: error.message, status: error.response?.status });
+    //   });
   }, [])
 
   const createFreshsalesFavicon = () => {
@@ -27,20 +32,35 @@ const App = () => {
     }
   }
 
+  const disabledTimes = new Set([900, 1000, 1100, 2300])
+
   return (
-    <div className="container">
-      <section className="appointment-details">
-        <h2 className="title">{stubData.appointmentDetails.title}</h2>
-        <h6 className="duration">{EMOJIS.DURATION} {stubData.appointmentDetails.duration} minutes</h6>
-        <div className="description">{stubData.appointmentDetails.description}</div>
-      </section>
-      <section className="date-picker">
-        <TimezoneSelector defaultTimezone={defaultTimezone} />
-        <CustomCalendar defaultTimezone={defaultTimezone} />
-      </section>
-      <section className="time-picker">
-      </section>
-    </div>
+    <AppProvider>
+      <h1 className="app-header">{EMOJIS.MEETING}&nbsp;<span className="gradient">Meeting Scheduler</span></h1>
+      <div className="container">
+        <section className="appointment-details">
+          <div className="content-container">
+            <h1 className="title">{stubData.appointmentDetails.title}</h1>
+            <div className="duration">
+                <strong>Duration&nbsp;</strong>{EMOJIS.DURATION}&nbsp;{stubData.appointmentDetails.duration} minute meeting
+            </div>
+            <div className="description" title={stubData.appointmentDetails.description}>{stubData.appointmentDetails.description}</div>
+          </div>
+        </section>
+        <section className="date-picker">
+          <TimezoneSelector />
+          <CustomCalendar />
+        </section>
+        <section className="time-picker">
+          <TimePicker timeSteps={60} disabledTimes={disabledTimes} />
+        </section>
+      </div>
+      <footer>
+        <div className="powered-by">
+          Powered by <span className="gradient">&nbsp;Freshsales</span>
+        </div>
+      </footer>
+    </AppProvider>
   )
 }
 
