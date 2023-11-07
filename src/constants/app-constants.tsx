@@ -6,5 +6,7 @@ export const BASE_64_ICONS = {
 
 export const EMOJIS = {
   DURATION: String.fromCodePoint(0x1F551),
-  TIMEZONE: String.fromCodePoint(0x1F310)
+  INFO: 'ℹ️',
+  PARTY: String.fromCodePoint(0x1F389),
+  MEETING: String.fromCodePoint(0x1F5D3)
 }

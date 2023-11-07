@@ -1,32 +1,19 @@
-import { useState } from 'react'
-
-// Third party libraries
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { enGB } from 'date-fns/locale'
 import { Calendar } from 'react-nice-dates'
 import 'react-nice-dates/build/style.css'
-import dayjs from 'dayjs'
-import timezone from 'dayjs/plugin/timezone'
-
-// Component styles
 import './CustomCalendar.scss'
+import useAppContext from '../../useAppContext'
 
-dayjs.extend(timezone)
+const CustomCalendar = () => {
 
-declare type CustomCalendarProps = {
-  defaultTimezone: string
-}
-
-const CustomCalendar = ({ defaultTimezone = Intl.DateTimeFormat().resolvedOptions().timeZone }: CustomCalendarProps) => {
-  const currentDate = dayjs.tz(dayjs(), defaultTimezone).toDate()
-  const [selectedDate, setSelectedDate] = useState<Date | null>(currentDate)
-  
-  const handleDateClick = (date: Date | null) => {
-    setSelectedDate(date)
-  }
+  const { currentDate, handleDateChange } = useAppContext();
 
   return (
     <>
-      <Calendar minimumDate={currentDate} onDayClick={handleDateClick} locale={enGB} />
+      <div className="calendar-container">
+        <Calendar minimumDate={currentDate} onDayClick={handleDateChange} locale={enGB} />
+      </div>
     </>
   )
 }

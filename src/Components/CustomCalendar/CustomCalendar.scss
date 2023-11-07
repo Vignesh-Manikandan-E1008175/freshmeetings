@@ -1,0 +1,41 @@
+@import './../../Variables';
+@import './../../Mixins';
+
+$nice-dates-color-gray-dark: $text-default !default;
+$nice-dates-color-gray: $text-highlighted !default;
+$nice-dates-color-gray-light: $disabled !default;
+$nice-dates-color-accent: $nice-dates-color-gray-dark !default;
+
+$nice-dates-font-size-small: 12px !default;
+$nice-dates-font-size-base: 14px !default;
+$nice-dates-font-size-big: 16px !default;
+
+@import 'react-nice-dates/src/style.scss';
+
+.calendar-container {
+  border: $default-border;
+  border-radius: $default-border-radius;
+  margin: 10px auto;
+
+  &:hover {
+    box-shadow: 0 0 0 1px $border-color-highlighted;
+  }
+
+  & > div {
+    max-width: 100%;
+  }
+
+  .nice-dates-grid_container {
+    .nice-dates-day {
+      max-height: 55px;
+    
+      &:not(.-disabled) {
+        &:hover {
+          &:after {
+            transform: scale(0.75)
+          }
+        } 
+      }
+    }
+  }
+}

@@ -1,4 +1,42 @@
+@import 'Variables';
+
 @mixin resetAllExtraSpaces() {
   margin: 0;
   padding: 0;
+}
+
+@mixin maxViewportHeight() {
+  height: 100vh;
+}
+
+@mixin labelGradient() {
+  background: $label-gradient-color-1;
+  background: linear-gradient(0deg, $label-gradient-color-1 0%, $label-gradient-color-2 100%);
+  background: -moz-linear-gradient(0deg, $label-gradient-color-1 0%, $label-gradient-color-2 100%);
+  background: -webkit-linear-gradient(0deg, $label-gradient-color-1 0%, $label-gradient-color-2 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
+// Neumorphic state (Soft UI) mixins
+@mixin neuDefaultState() {
+  border-radius: $default-border-radius;
+  background: $background-primary;
+  box-shadow:  25px 25px 50px #cccccc,
+              -25px -25px 50px #ffffff;
+}
+
+@mixin neuBtnDefaultState() {
+  border-radius: $default-border-radius;
+  background: linear-gradient(145deg, #ffffff, #d8d8d8);
+  box-shadow:  25px 25px 50px #cccccc,
+              -25px -25px 50px #ffffff;
+}
+
+@mixin neuBtnHoveredState() {
+  border-radius: $default-border-radius;
+  background: $background-primary;
+  box-shadow: inset 25px 25px 50px #cccccc,
+              inset -25px -25px 50px #ffffff;
 }
