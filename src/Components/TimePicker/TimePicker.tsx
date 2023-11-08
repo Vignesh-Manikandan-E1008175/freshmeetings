@@ -1,45 +1,32 @@
-import React, { useState } from 'react';
+import { useEffect } from 'react';
+import useAppContext from '../../useAppContext';
+import { Button, ButtonGroup } from 'rsuite';
 
-interface TimePickerProps {
-  timeSteps: number;
-  disabledTimes: Set<number>;
-}
+const TimePicker = () => {
+  const { selectedDate, selectedTime, availableTimes, perDayTimeAvailability, handleTimeChange, handleConfirmSchedule, } = useAppContext();
 
-const TimePicker: React.FC<TimePickerProps> = ({ timeSteps, disabledTimes }) => {
-  const [selectedTime, setSelectedTime] = useState<number | null>(null);
-
-  const handleTimeClick = (time: number) => {
-    if (!disabledTimes.has(time)) {
-      setSelectedTime(time);
-    }
+  const handleTimeClick = (time: string) => {
+    handleTimeChange(time)
+    handleConfirmSchedule(time ? true : false);
   };
 
-  const renderTimeSlots = () => {
-    const timeSlots = [];
-    for (let i = 0; i < 24 * 60; i += timeSteps) {
-      const hours = Math.floor(i / 60);
-      const minutes = i % 60;
-      const time = hours * 100 + minutes;
+  useEffect(() => {
 
-      const isDisabled = disabledTimes.has(time);
-
-      timeSlots.push(
-        <button
-          key={time}
-          onClick={() => handleTimeClick(time)}
-          disabled={isDisabled}
-          className={isDisabled ? 'disabled' : selectedTime === time ? 'selected' : ''}
-        >
-          {`${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}`}
-        </button>
-      );
-    }
-    return timeSlots;
-  };
+  }, [selectedDate, selectedTime])
 
   return (
     <>
-      {renderTimeSlots()}
+      <ButtonGroup vertical className='time-picker-container'>
+        {
+          !selectedDate ? 
+            Array.from(availableTimes).map((time, index) => {
+              return (<Button key={index} appearance='subtle' size='md' color='blue' onClick={() => handleTimeClick}>{time}</Button>)
+            }) :
+            Array.from(perDayTimeAvailability.times).map((time, index) => {
+              return (<Button appearance='subtle' key={index} size='md' color='blue' onClick={() => handleTimeClick}>{time}</Button>)
+            })
+        }
+      </ButtonGroup>
     </>
   );
 };

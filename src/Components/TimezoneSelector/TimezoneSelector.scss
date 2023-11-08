@@ -31,5 +31,8 @@
         }
       }
     }
+    div[class$='-menu'] {
+      background-color: $background-primary;
+    }
   }
 }
