@@ -11,8 +11,7 @@ const ConfirmScheduleModal = ({ showModal, timeStep, appointmentTitle }) => {
   const { selectedTime, selectedDate } = useAppContext()
 
   const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const emailValue = e.target.value
-    isEmail(emailValue) ? setEmail(e.target.value) : setEmail('')
+    setEmail(e.target.value)
   };
 
   const handleCancel = () => {
