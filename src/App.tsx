@@ -44,7 +44,7 @@ const App = () => {
     const scheduleName = document.getElementById('root')?.getAttribute('data-schedule-link');
     let host;
     if (scheduleName) {
-      host = "http://" + window.location.host + '/meetings/' + scheduleName + '/booking_details'
+      host = "https://" + window.location.host + '/meetings/' + scheduleName + '/booking_details'
     } else {
       host = `${window.location.href}/booking_details`
     }
