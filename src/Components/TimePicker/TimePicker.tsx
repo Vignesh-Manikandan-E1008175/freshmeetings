@@ -1,4 +1,3 @@
-import { useEffect } from 'react';
 import useAppContext from '../../useAppContext';
 import { Button, ButtonGroup } from 'rsuite';
 
@@ -9,10 +8,6 @@ const TimePicker = () => {
     handleTimeChange(time)
     handleConfirmSchedule(time ? true : false);
   };
-
-  useEffect(() => {
-
-  }, [selectedDate, selectedTime])
 
   return (
     <>

@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { useEffect, useRef } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import { BASE_64_ICONS, EMOJIS } from './Constants/app-constants'
-import { stubData } from './Constants/api-stub'
 import 'rsuite/dist/rsuite-no-reset.min.css';
 import { extractTimeRanges } from './Constants/helpers'
 import axios from 'axios'
@@ -37,18 +36,19 @@ const App = () => {
   const extractedTimeRangesRef = useRef([])
   const maxDaysRef = useRef(0)
   const apiResponseDataRef = useRef(null)
+  const [hasAppLoaded, setHasAppLoaded] = useState(false)
 
   useEffect(() => {
     createFreshsalesFavicon()
-
-    const apiUrl = '/meetings/rvt-sellan/booking_details'
-    axios.get(apiUrl).then((response) => {
-      const apiResponse = response.data
+    const apiUrl = `${window.location.href}/booking_details`
+    axios.get(apiUrl, { headers: { 'Accept': '*/*' } }).then((response) => {
+      const apiResponse = response.data.scheduler
       apiResponseDataRef.current = apiResponse
       const isWeekly: boolean = apiResponse.date_time_configs.is_weekly
       maxDaysRef.current = isWeekly ? apiResponse.date_time_configs.max_days : 0
       const availabilityHash = isWeekly ? apiResponse.date_time_configs.specific_days : apiResponse.date_time_configs.specific_dates
       extractedTimeRangesRef.current = extractTimeRanges(timeSteps, availabilityHash, isWeekly, selectedDate)
+      setHasAppLoaded(true)
     })
     .catch((error) => {
       console.error('API call error:', error);
@@ -56,30 +56,35 @@ const App = () => {
   }, [])
 
   useEffect(() => {
-    const [times, dates] = extractedTimeRangesRef.current
-    if (!selectedDate) {
-      updateAvailableTimes(times)
-      updateAvailableDates(dates)
-    } else {
-      handleOpenTimePicker(true)
-      updatePerDayTimeAvailability(dates, times)
-      updatePerDateAvailability(dates)
+    if (hasAppLoaded) {
+      const apiResponse = apiResponseDataRef.current
+      const isWeekly = apiResponse.date_time_configs.is_weekly
+      const availabilityHash = isWeekly ? apiResponse.date_time_configs.specific_days : apiResponse.date_time_configs.specific_dates
+      const [times, dates] = extractTimeRanges(timeSteps, availabilityHash, isWeekly, selectedDate)
+      if (!selectedDate) {
+        updateAvailableTimes(times)
+        updateAvailableDates(dates)
+      } else {
+        handleOpenTimePicker(true)
+        updatePerDayTimeAvailability(dates, times)
+        updatePerDateAvailability(dates)
+      }
     }
-  }, [selectedDate])
+  }, [selectedDate, hasAppLoaded])
 
   return (
     <>
-    {apiResponseDataRef.current !== null ? 
+    {hasAppLoaded ? 
       <div>
         <h1 className="app-header">{EMOJIS.MEETING}&nbsp;<span className="gradient">Meeting Scheduler</span></h1>
         <div className="container">
           <section className="appointment-details">
             <div className="content-container">
-              <h1 className="title">{stubData.appointmentDetails.title}</h1>
+              <h1 className="title">{apiResponseDataRef.current.title}</h1>
               <div className="duration">
                   <strong>Duration&nbsp;</strong>{EMOJIS.DURATION}&nbsp;{duration} minute meeting
               </div>
-              <div className="description" title={apiResponseDataRef.current.appointmentDetails.title}>{apiResponseDataRef.current.appointmentDetails.description}</div>
+              <div className="description" title={apiResponseDataRef.current.description}>{apiResponseDataRef.current.description}</div>
             </div>
           </section>
           <section className="date-picker">
@@ -98,7 +103,7 @@ const App = () => {
             Powered by <span className="gradient">&nbsp;Freshsales</span>
           </div>
         </footer>
-      </div> : null}
+      </div> : <h1>Loading...</h1>}
     </>
   )
 }
