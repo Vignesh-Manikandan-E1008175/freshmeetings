@@ -1,0 +1,20 @@
+@import './../../Mixins.scss';
+@import './../../Variables.scss';
+
+.time-picker-header {
+  @include labelGradient();
+  margin: 18px auto 35px auto;
+}
+
+.time-picker-container {
+  max-height: 480px;
+  max-width: 400px;
+  overflow-y: scroll;
+  border: $default-border;
+  margin: 5px 0 0 80px;
+  border-radius: 15px;
+}
+
+.time-picker-container button {
+  min-width: 100px;
+}

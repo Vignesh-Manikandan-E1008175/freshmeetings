@@ -11,7 +11,8 @@ const ConfirmScheduleModal = ({ showModal, timeStep, appointmentTitle }) => {
   const { selectedTime, selectedDate } = useAppContext()
 
   const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setEmail(e.target.value)
+    const emailValue = e.target.value
+    isEmail(emailValue) ? setEmail(e.target.value) : setEmail('')
   };
 
   const handleCancel = () => {
@@ -58,8 +59,9 @@ const ConfirmScheduleModal = ({ showModal, timeStep, appointmentTitle }) => {
   return (
     <div className="modal">
       <div className="modal-content">
+        <h3 className="modal-title">Finalize your choice for this time slot?</h3>
         <div className="input-group">
-          <label htmlFor="email">Email:</label>
+          <label htmlFor="email">Email</label>
           <input
             type="email"
             id="email"

@@ -5,6 +5,8 @@ import 'rsuite/dist/rsuite-no-reset.min.css';
 import { extractTimeRanges } from './Constants/helpers'
 import axios from 'axios'
 import './App.scss'
+import { Loader, Placeholder } from 'rsuite'
+import FadeIn from 'react-fade-in/lib/FadeIn';
 
 // Components
 import CustomCalendar from './Components/CustomCalendar/CustomCalendar'
@@ -39,7 +41,7 @@ const App = () => {
 
   useEffect(() => {
     createFreshsalesFavicon()
-    let scheduleName = document.getElementById('root').getAttribute('data-schedule-link');
+    const scheduleName = document.getElementById('root')?.getAttribute('data-schedule-link');
     let host;
     if (scheduleName) {
       host = "http://" + window.location.host + '/meetings/' + scheduleName + '/booking_details'
@@ -80,35 +82,40 @@ const App = () => {
 
   return (
     <>
-    {hasAppLoaded ? 
-      <div>
-        <h1 className="app-header">{EMOJIS.MEETING}&nbsp;<span className="gradient">Meeting Scheduler</span></h1>
-        <div className="container">
-          <section className="appointment-details">
-            <div className="content-container">
-              <h1 className="title">{apiResponseDataRef.current.title}</h1>
-              <div className="duration">
-                  <strong>Duration&nbsp;</strong>{EMOJIS.DURATION}&nbsp;{duration} minute meeting
+      {hasAppLoaded ? 
+        <div>
+          <FadeIn delay={300} transitionDuration={1000}>
+            <h1 className="app-header">{EMOJIS.MEETING}&nbsp;<span className="gradient">Meeting Scheduler</span></h1>
+          </FadeIn>
+          <div className="container">
+            <section className="appointment-details">
+              <div className="content-container">
+                <h1 className="title">{apiResponseDataRef.current.title}</h1>
+                <div className="duration">
+                    <strong>Duration&nbsp;</strong>{EMOJIS.DURATION}&nbsp;{duration} minute meeting
+                </div>
+                <div className="description" title={apiResponseDataRef.current.description}>{apiResponseDataRef.current.description}</div>
               </div>
-              <div className="description" title={apiResponseDataRef.current.description}>{apiResponseDataRef.current.description}</div>
-            </div>
-          </section>
-          <section className="date-picker">
-            <TimezoneSelector />
-            <CustomCalendar maxDays={maxDaysRef.current} />
-          </section>
-          {
-            openTimePicker ?
-              <section className="time-picker"><TimePicker timeStep={timeSteps} appointmentTitle={apiResponseDataRef.current.title} /></section> :
-              null
-          }
-        </div>
-        <footer>
-          <div className="powered-by">
-            Powered by <span className="gradient">&nbsp;Freshsales</span>
+            </section>
+            <section className="date-picker">
+              <TimezoneSelector />
+              <CustomCalendar maxDays={maxDaysRef.current} />
+            </section>
+            {openTimePicker ?
+                <section className="time-picker">
+                  <TimePicker timeStep={timeSteps} appointmentTitle={apiResponseDataRef.current.title} />
+                </section> : null}
           </div>
-        </footer>
-      </div> : <h1>Loading...</h1>}
+          <footer>
+            <div className="powered-by">
+              Powered by <span className="gradient">&nbsp;Freshsales</span>
+            </div>
+          </footer>
+        </div> :
+      <div className='loader-container'>
+        <Placeholder.Grid rows={10} />
+        <Loader center size='md' content="Loading..." />
+      </div>}
     </>
   )
 }

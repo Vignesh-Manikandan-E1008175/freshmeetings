@@ -2,10 +2,11 @@ import { useEffect, useState } from 'react';
 import useAppContext from '../../useAppContext';
 import { Button, ButtonGroup } from 'rsuite';
 import ConfirmScheduleModal from '../ConfirmScheduleModal/ConfirmScheduelModal';
+import './TimePicker.scss';
 
 const TimePicker = ({ timeStep, appointmentTitle }) => {
   const [showBookingConfirmation, setShowBookingConfirmation] = useState(false)
-  const { selectedDate, confirmSchedule, selectedTime, availableTimes, perDayTimeAvailability, handleTimeChange, handleConfirmSchedule, } = useAppContext();
+  const { selectedDate, selectedTime, confirmSchedule, availableTimes, perDayTimeAvailability, handleTimeChange, handleConfirmSchedule, } = useAppContext();
 
   const handleTimeClick = (time: string) => {
     const timeValue = time.target.innerText
@@ -15,11 +16,12 @@ const TimePicker = ({ timeStep, appointmentTitle }) => {
 
   useEffect(() => {
     confirmSchedule && setShowBookingConfirmation(true)
-  }, [confirmSchedule])
+  }, [confirmSchedule, selectedTime])
 
   return (
     <>
-      <ButtonGroup horizontal className='time-picker-container'>
+      <h1 className="time-picker-header">Pick a suitable time slot</h1>
+      <ButtonGroup vertical className='time-picker-container'>
         {
           !selectedDate ? 
             Array.from(availableTimes).map((time, index) => {

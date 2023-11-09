@@ -4,8 +4,14 @@
 
 
 :root {
-  @include maxViewportHeight();
+  height: 100vh !important;
   font-family: $font-family;
+}
+
+#root {
+  & > div {
+    height: 100%;
+  }
 }
 
 body {
@@ -34,7 +40,7 @@ h1.app-header {
 
   section {
     &:first-child {
-      flex: 0.5;
+      flex: 0.3;
     }
 
     &:nth-child(2) {
