@@ -47,7 +47,7 @@ const ConfirmScheduleModal = ({ showModal, timeStep, appointmentTitle }) => {
     let scheduleName = document.getElementById('root').getAttribute('data-schedule-link');
     let host;
     if (scheduleName) {
-      host = "https://" + window.location.host + '/meetings/' + scheduleName + '/booking_details'
+      host = "https://" + window.location.host + '/meetings/' + scheduleName + '/submit'
     } else {
       host = `${window.location.href}/submit`
     }
