@@ -15,8 +15,8 @@ export default defineConfig({
         clearScreen: true
       },
       output: {
-        entryFileNames: 'bundle.[hash].js',
-        assetFileNames: 'bundle.[hash].[ext]'
+        entryFileNames: 'bundle.js',
+        assetFileNames: 'bundle.[ext]'
       },
     },
   },

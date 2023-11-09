@@ -6,7 +6,16 @@ export const BASE_64_ICONS = {
 
 export const EMOJIS = {
   DURATION: String.fromCodePoint(0x1F551),
-  INFO: 'ℹ️',
   PARTY: String.fromCodePoint(0x1F389),
   MEETING: String.fromCodePoint(0x1F5D3)
+}
+
+export const CALENDAR_DAY_MAPPER = {
+  '1': 'Monday',
+  '2': 'Tuesday',
+  '3': 'Wednesday',
+  '4': 'Thursday',
+  '5': 'Friday',
+  '6': 'Saturday',
+  '7': 'Sunday'
 }

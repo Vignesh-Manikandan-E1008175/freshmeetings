@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useMemo } from 'react'
 import TimezoneSelect, { allTimezones } from "react-timezone-select";
 import dayjs from 'dayjs'
 import utc from 'dayjs/plugin/utc'
@@ -6,7 +6,6 @@ import timezone from 'dayjs/plugin/timezone'
 import './TimezoneSelector.scss'
 import { isAlternateTzFormat } from '../../Constants/helpers';
 import useAppContext from '../../useAppContext'
-import { EMOJIS } from '../../Constants/app-constants';
 
 
 dayjs.extend(utc)
@@ -20,11 +19,11 @@ const TIMEZONES = {
 
 const TimezoneSelector = () => {
   const { selectedTimezone, handleTimezoneChange } = useAppContext();
+  const tzValue = isAlternateTzFormat(selectedTimezone) ? selectedTimezone.value : selectedTimezone
 
-  useEffect(() => {
-    const tzValue = isAlternateTzFormat(selectedTimezone) ? selectedTimezone.value : selectedTimezone
+  useMemo(() => {
     handleTimezoneChange(tzValue)
-  });
+  }, [tzValue]);
 
   return (
     <div className="timezone-selector-container">

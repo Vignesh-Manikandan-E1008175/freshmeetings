@@ -69,11 +69,11 @@ h1.app-header {
         font-size: medium;
         font-weight: 300;
         color: $text-default;
-        max-width: 350px;
+        max-width: 95%;
         min-width: 250px;
         display: -webkit-box;
         -webkit-box-orient: vertical;
-        -webkit-line-clamp: 5;
+        -webkit-line-clamp: 20;
         overflow: hidden;
         text-overflow: ellipsis;
         white-space: wrap;
