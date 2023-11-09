@@ -44,7 +44,14 @@ const ConfirmScheduleModal = ({ showModal, timeStep, appointmentTitle }) => {
   };
 
   const postData = (data) => {
-    axios.post(`${window.location.href}/submit`, data, {
+    let scheduleName = document.getElementById('root').getAttribute('data-schedule-link');
+    let host;
+    if (scheduleName) {
+      host = "https://" + window.location.host + '/meetings/' + scheduleName + '/booking_details'
+    } else {
+      host = `${window.location.href}/submit`
+    }
+    axios.post(host, data, {
       headers: {
         "Accept": "*/*"
       }
