@@ -71,7 +71,7 @@ const ConfirmScheduleModal = ({ showModal, timeStep, appointmentTitle }) => {
         </div>
       </div>
       <div className="modal-footer">
-        <Button appearance='ghost' size='md' color='red' onClick={handleCancel}>Cancel</Button>
+        <Button appearance='ghost' size='md' color='yellow' onClick={handleCancel}>Cancel</Button>
         <Button appearance='default' size='md' color='blue' onClick={handleSchedule}>Schedule</Button>
       </div>
     </div>
