@@ -24,7 +24,6 @@ const App = () => {
 
   const {
     openTimePicker,
-    confirmSchedule,
     updateAvailableTimes,
     updateAvailableDates,
     updatePerDayTimeAvailability,
@@ -40,7 +39,14 @@ const App = () => {
 
   useEffect(() => {
     createFreshsalesFavicon()
-    const apiUrl = `${window.location.href}/booking_details`
+    let scheduleName = document.getElementById('root').getAttribute('data-schedule-link');
+    let host;
+    if (scheduleName) {
+      host = "http://" + window.location.host + '/meetings/' + scheduleName + '/booking_details'
+    } else {
+      host = `${window.location.href}/booking_details`
+    }
+    const apiUrl = host
     axios.get(apiUrl, { headers: { 'Accept': '*/*' } }).then((response) => {
       const apiResponse = response.data.scheduler
       apiResponseDataRef.current = apiResponse
@@ -93,11 +99,10 @@ const App = () => {
           </section>
           {
             openTimePicker ?
-              <section className="time-picker"><TimePicker /></section> :
+              <section className="time-picker"><TimePicker timeStep={timeSteps} appointmentTitle={apiResponseDataRef.current.title} /></section> :
               null
           }
         </div>
-        {confirmSchedule ? (<div className="confirm-schedule">Confirm Schedule</div>) : null}
         <footer>
           <div className="powered-by">
             Powered by <span className="gradient">&nbsp;Freshsales</span>
